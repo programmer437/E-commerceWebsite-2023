@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink,Link} from 'react-router-dom';
-import {GiShoppingCart} from 'react-icons/gi';
+
 
 const Header = () => {
   return (<nav className="navbar navbar-expand-lg bg-body-tertiary">

@@ -5,7 +5,8 @@ import About from './pages/About';
 import Policy from './pages/Policy';
 import PageNotFound from './pages/PageNotFound';
 import ContactUs from './pages/ContactUs';
-import Register from './pages/Register';
+import Register from './pages/auth/Register';
+
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path="*" element={<PageNotFound/>}/>
       <Route path="/contact" element={<ContactUs/>}/>
     </Routes>
+
   )
 }
 export default App;

@@ -2,6 +2,7 @@ import React from 'react'
 import Footer from "../Layout/Footer";
 import Header from "../Layout/Header";
 import {Helmet} from "react-helmet";
+import { Toaster} from 'react-hot-toast';
 
 const Layout = ({children,title,description,keywords,author}) => {
   return (
@@ -14,7 +15,11 @@ const Layout = ({children,title,description,keywords,author}) => {
           <title>{title}</title>
         </Helmet>
         <Header /> 
-        <main style={{minHeight:'80vh'}}>{children}</main>
+        <main style={{minHeight:'80vh'}}>
+          
+          {children}
+          <Toaster />
+          </main>
         <Footer />
 
     </div>

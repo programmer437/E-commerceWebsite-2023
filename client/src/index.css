@@ -50,3 +50,14 @@
   color: white;
   transition: 0.2s all;
 }
+
+
+
+/* =====================register page===================== */
+.register{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 83vh;
+}
