@@ -8,23 +8,26 @@ export const registerController= async (req,res)=>{
     try {
 
         //Get data from the front-end
-        const {name,email,password,phone,address}=req.body;
+        const {name,email,password,phone,address,answer}=req.body;
 
         //Check if the fields are empty
         if(!name){
-            return res.send({message:"Name is required"});
+            return res.status(400).send({message:"Name is required"});
         }
         if(!password){
-            return res.send({message:"password is required"});
+            return res.status(400).send({message:"password is required"});
         }
         if(!phone){
-            return res.send({message:"phone is required"});
+            return res.status(400).send({message:"phone is required"});
         }
         if(!email){
-            return res.send({message:"email is required"});
+            return res.status(400).send({message:"email is required"});
         }
         if(!address){
-            return res.send({message:"address is required"});
+            return res.status(400).send({message:"address is required"});
+        }
+        if(!answer){
+            return res.status(400).send({message:"answer is required"});
         }
 
         //Check if user exists
@@ -37,7 +40,7 @@ export const registerController= async (req,res)=>{
         }
 
         const hashedPassword= await hashPassword(password);
-        const user= await userModel.create({name,email,password:hashedPassword,phone,address});
+        const user= await userModel.create({name,email,password:hashedPassword,phone,address,answer});
         res.status(201).send({
             success:true,
             message:"User Created",
@@ -114,5 +117,51 @@ export const loginController= async (req,res)=>{
     }
 
 }
+export const forgotPasswordController= async (req,res)=>{
+    try {
+
+        //Get data from the front-end
+        const {email,answer,newPassword}=req.body;
+
+        //Check if the fields are empty
+        if(!email){
+            return res.status(400).send({message:"email is required"});
+        }
+        if(!answer){
+            return res.status(400).send({message:"address is required"});
+        }
+        if(!newPassword){
+            return res.status(400).send({message:"Password is required"});
+        }
+        const user= await userModel.findOne({email,answer}) 
+        //Check if user doesnt exists
+        if(!user){
+            return res.status(400).send({
+                success:false,
+                message:"Wrong Email or Answer"
+            });
+        }
+        //Update the Password
+        const hashed= await hashPassword(newPassword);
+        await userModel.findByIdAndUpdate(user._id,{password:hashed});
+        res.status(200).send({
+            success:true,
+            message:"Password Updated"
+        })
+
+        
+       
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success:false,
+            message:"Something went Worng",
+            error
+        })
+        
+    }
+
+};
 
 
