@@ -7,7 +7,7 @@ import authRoute from "./routes/authRoute.js"
 import cors from "cors";
 
 dotenv.config();
-const PORT=process.env.PORT|| 8080;
+const port=process.env.PORT|| 3001;
 
 const app= express();
 app.use(cors());
@@ -24,7 +24,7 @@ app.use("/api/v1/auth",authRoute);
  const start=async ()=>{
     try {
         await connectDB()
-        app.listen(process.env.PORT,console.log(`Server is listening at port ${process.env.PORT}`))
+        app.listen(port,console.log(`Server is listening at port ${port}` .bgYellow))
         
     } catch (error) {
         console.log(error);

@@ -1,8 +1,25 @@
 import React from 'react';
 import {NavLink,Link} from 'react-router-dom';
+import { useAuth } from '../../context/auth';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const Header = () => {
+  const {auth,setAuth} = useAuth();
+  const handleLogout = () => {
+    localStorage.removeItem("auth");
+    setAuth({
+      user: null,
+      token: ""
+    });
+    setTimeout(() => {
+      toast.success("Logged out successfully");
+    }, 100);
+  }
+
+
+
+
   return (<nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container-fluid">
     <button
@@ -31,16 +48,28 @@ const Header = () => {
           category
           </NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink to="/register" className="nav-link" >
-            register
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink to="/login" className="nav-link" >
-            Login
-          </NavLink>
-        </li>
+        {
+          !auth.user ? (
+            <>
+            <li className="nav-item">
+              <NavLink to="/login" className="nav-link" >
+              Login
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/register" className="nav-link" >
+              Register
+              </NavLink>
+            </li>
+            </>
+          ):(
+            
+            <li className="nav-item">
+              <NavLink onClick={handleLogout} to="/login" className="nav-link" >
+              Logout
+              </NavLink>
+            </li>
+          )  }
         <li className="nav-item">
           <NavLink to="/cart" className="nav-link ">
             Cart(0)
