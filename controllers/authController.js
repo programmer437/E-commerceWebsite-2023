@@ -97,6 +97,7 @@ export const loginController= async (req,res)=>{
                 email:user.email,
                 phone:user.phone,
                 address:user.address,
+                role:user.role,
             },
             token
         });
@@ -134,13 +135,18 @@ export const forgotPasswordController= async (req,res)=>{
             return res.status(400).send({message:"Password is required"});
         }
         const user= await userModel.findOne({email,answer}) 
+        console.log(user,"user")
+
         //Check if user doesnt exists
         if(!user){
+            console.log("user not found");
             return res.status(400).send({
                 success:false,
                 message:"Wrong Email or Answer"
             });
+            
         }
+
         //Update the Password
         const hashed= await hashPassword(newPassword);
         await userModel.findByIdAndUpdate(user._id,{password:hashed});
@@ -148,10 +154,6 @@ export const forgotPasswordController= async (req,res)=>{
             success:true,
             message:"Password Updated"
         })
-
-        
-       
-        
     } catch (error) {
         console.log(error);
         res.status(500).send({

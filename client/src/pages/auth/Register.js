@@ -11,7 +11,8 @@ const Register = () => {
     email: '',
     password: '',
     address: '',
-    phone: ''
+    phone: '',
+    answer: ''
   });
   console.log(data);
 
@@ -116,6 +117,19 @@ const Register = () => {
               className="form-control"
               id="exampleInputPhone"
               placeholder='Enter Phone Number'
+              required
+
+            />
+          </div>
+          <div className="mb-3">
+            <input
+              name='answer'
+              value={data.answer}
+              onChange={handleChange}
+              type="text"
+              className="form-control"
+              id="exampleInputPhone"
+              placeholder='What is mother maiden name?'
               required
 
             />

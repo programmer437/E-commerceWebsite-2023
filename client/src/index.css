@@ -18,8 +18,8 @@
   
 }
 
-.active{
-  background-color: #4CAF50;
+.navbar .nav-item .nav-link:focus{
+  background-color: #4CAF50 !important;
   color: white;
   border-radius: 2px;
   transition: 0.5s all;

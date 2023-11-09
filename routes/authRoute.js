@@ -14,9 +14,16 @@ router.post("/login",loginController);
 //Forgot Password Controller||POST
 router.post("/forgot-password",forgotPasswordController);
 
+//User Auth Controller||GET
 router.get("/user-auth",requireSignIn,(req,res)=>res.status(200).send({
     ok:true,
 }));
+
+//admin Auth Controller||GET
+router.get("/admin-auth",requireSignIn,isAdmin,(req,res)=>res.status(200).send({
+    ok:true,
+}));
+
 
 
 export default router;
