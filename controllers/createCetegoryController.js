@@ -11,6 +11,7 @@ export const createCategoryController = async (req, res) => {
                 message:"Name is required"
             });
         } 
+        
         const existingCategory= await categoryModel.findOne({name});
         if(existingCategory){
             return res.status(400).json({
